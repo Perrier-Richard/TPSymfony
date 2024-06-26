@@ -80,4 +80,20 @@ class IngredientController extends AbstractController
         ]);
     }
 
+    #[Route('/ingredient/remove/{id}','ingredient_remove',methods:['GET'])]
+    public function remove(Request $request, EntityManagerInterface $manager, Ingredient $ingredient): Response
+    {
+        $manager->remove($ingredient);
+        $manager->flush();
+
+        $manager->flush();
+
+        $this->addFlash(
+            'success',
+            "Vos changements ont été enregistré !"
+        );
+
+        return $this->redirectToRoute('app_ingredient');
+    }
+
 }
